@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dotnet-app01-deployment
+  name: dotnet-app01
 spec:
   replicas: 1
   selector:
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: my-image
-        image: oliveiha/dotnetapp:94
+        image: oliveiha/dotnetapp:126
         ports:
         - containerPort: 80

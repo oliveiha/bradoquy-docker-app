@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dotnet-app01-service
+  name: dotnet-app01
 spec:
   type: NodePort
   ports:
