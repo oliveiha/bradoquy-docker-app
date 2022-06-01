@@ -53,3 +53,5 @@ stages:
         containerRegistry: 'oliveiha-dockerhub'
         repository: 'oliveiha/dotnetapp'
         command: 'push'
+        tags: |
+          latest
