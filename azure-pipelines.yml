@@ -8,11 +8,11 @@ trigger:
 resources:
 - repo: self
 stages:
-- stage: Build 
-  displayName: Build dotnet app
+- stage: ListDir
+  displayName: Listing Directory
   jobs:
-  - job: Build
-    displayName: Build
+  - job: ls
+    displayName: Listing Directory
     pool:
       name: bradoquy-docker
     steps:
@@ -20,6 +20,14 @@ stages:
       displayName: List Directory
       inputs:
         script: 'ls -la'
+- stage: Build 
+  displayName: Build dotnet app
+  jobs:
+  - job: DockerBuild
+    displayName: Build
+    pool:
+      name: bradoquy-docker
+    steps:
     - task: Docker@2
       displayName: Docker build dotnet app
       inputs:
@@ -27,6 +35,14 @@ stages:
         repository: 'oliveiha/dotnetapp'
         command: 'build'
         Dockerfile: '$(Build.SourcesDirectory)/docker-app/Dockerfile'
+- stage: DockerPush 
+  displayName: push dotnet app
+  jobs:
+  - job: Push
+    displayName: Push dotnet app
+    pool:
+      name: bradoquy-docker
+    steps:        
     - task: Docker@2
       displayName: Docker push dotnet app
       inputs:
