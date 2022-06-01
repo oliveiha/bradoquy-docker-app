@@ -132,13 +132,14 @@ stages:
       name: bradoquy-k8s
     steps:   
     - task: CmdLine@2
+      displayName: Delete App
+      inputs:
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl delete deployment $(app-name)'
+    - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
         script: 'cd /azp/_work/1/s/k8s-manifests && kubectl apply -f deployment.yaml'
-    - task: CmdLine@2
-      displayName: Delete App
-      inputs:
-        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl delete deployment $(app-name)'    
+        
     - task: CmdLine@2
       displayName: Deploy Service
       inputs:
