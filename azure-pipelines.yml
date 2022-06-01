@@ -39,6 +39,7 @@ stages:
         repository: 'oliveiha/dotnetapp'
         command: 'build'
         Dockerfile: 'docker-app/docker-app/Dockerfile'
+        tags: '$(Build.BuildId)'
 - stage: DockerPush 
   displayName: push dotnet app
   jobs:
