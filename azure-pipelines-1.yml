@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+
+pool:
+  name: docker-k8s
+
+steps:
+- script: apt update
+  displayName: 'Update Agent'
+
+- script: apt install apt-transport-https ca-certificates curl software-properties-common
+  displayName: 'Install dependencias'
+
+- script: apt curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  displayName: 'Install Apt Key'
+
+- script: apt add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+  displayName: 'Install Repo'
+
+- script: apt update
+  displayName: 'Update'
+
+- script: apt install docker-ce
+  displayName: 'Install docker'
+
+
