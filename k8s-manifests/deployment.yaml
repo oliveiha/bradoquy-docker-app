@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: dotnet-app01-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: dotnet-app01
   template:
     metadata:
       labels:
-        app: my-app
+        app: dotnet-app01
     spec:
       containers:
       - name: my-image
-        image: appregistry1000.azurecr.io/dotnetapp
+        image: oliveiha/dotnetapp:73
         ports:
         - containerPort: 80
