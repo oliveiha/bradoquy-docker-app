@@ -19,7 +19,7 @@ resources:
 - repo: self
 
 stages:
-- stage: Git Clone
+- stage: GitClone
   displayName: Clonning Repo
   jobs:
   - job: Git
