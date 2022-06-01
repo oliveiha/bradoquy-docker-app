@@ -17,6 +17,7 @@ trigger:
  
 resources:
 - repo: self
+  clean: true
 stages:
 - stage: ListDir
   displayName: Listing Directory
