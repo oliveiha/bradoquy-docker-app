@@ -17,7 +17,7 @@ pool:
     containerRegistry: 'oliveiha-dockerhub'
     repository: 'oliveiha/dotnetapp'
     command: 'buildAndPush'
-    Dockerfile: '**/dockerapp/Dockerfile'
+    Dockerfile: $(Build.SourcesDirectory)/docker-app/Dockerfile'
 
 
 
