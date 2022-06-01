@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: bradoquy-docker
+  name: bradoquy-docker
 
 steps:
 - script: echo Hello, world!
