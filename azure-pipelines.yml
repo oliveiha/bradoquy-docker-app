@@ -30,11 +30,13 @@ stages:
       name: bradoquy-k8s
     steps:
     - task: CmdLine@2
+      displayName: delete dir
+      inputs:
+        script: 'rm -rf bradoquy-docker-app'
+    - task: CmdLine@2
       displayName: Clonning Repo
       inputs:
-        script: |
-          'rm -rf bradoquy-docker-app'
-          'git clone $(dotnet-app-repo)'
+        script: 'git clone $(dotnet-app-repo)'      
 - stage: ListDir
   displayName: Listing Directory
   jobs:
