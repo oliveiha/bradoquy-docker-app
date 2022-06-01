@@ -6,7 +6,7 @@
 
 
 pool:
-  name: docker-k8s
+  name: bradoquy-k8s
 
 steps:
 - script: apt update
