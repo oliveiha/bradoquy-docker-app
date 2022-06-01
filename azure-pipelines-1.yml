@@ -18,7 +18,7 @@ steps:
 - script: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   displayName: 'Install Apt Key'
 
-- script: apt add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+- script: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
   displayName: 'Install Repo'
 
 - script: apt update
