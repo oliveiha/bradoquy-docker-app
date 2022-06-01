@@ -121,11 +121,13 @@ stages:
     pool:
       name: bradoquy-k8s
     steps:   
-    - task: KubernetesManifest@0
+    - task: CmdLine@2
+      displayName: Deploy Deployment
       inputs:
-        action: 'deploy'
-        manifests: |
-           $(Build.ArtifactStagingDirectory)/deployment.yaml
-           $(Build.ArtifactStagingDirectory)/service.yaml
-        containers: |
-          oliveiha/dotnetapp:latest
+        script: 'kubectl apply -f deployment.yaml'
+    - task: CmdLine@2
+      displayName: Deploy Service
+      inputs:
+        script: 'kubectl apply -f service.yaml'     
+          
+        
