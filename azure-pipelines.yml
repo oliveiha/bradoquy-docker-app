@@ -16,6 +16,10 @@ stages:
     pool:
       name: bradoquy-docker
     steps:
+    - task: CmdLine@2
+      displayName: List Directory
+      inputs:
+        script: 'ls -la'
     - task: Docker@2
       displayName: Docker build dotnet app
       inputs:
