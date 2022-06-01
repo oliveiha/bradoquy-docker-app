@@ -6,14 +6,13 @@
 trigger:
 - main
 
-pool:
-  name: bradoquy-docker
-
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
 - task: Docker@2
+pool:
+  name: bradoquy-docker
   inputs:
     containerRegistry: 'oliveiha-dockerhub'
     repository: 'oliveiha/dotnetapp'
