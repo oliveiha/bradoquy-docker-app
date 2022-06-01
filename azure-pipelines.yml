@@ -56,6 +56,40 @@ stages:
         tags: |
           latest
 
+- stage: ConfigKubectl 
+  displayName: Config kubectl 
+  jobs:
+  - job: ConfigKubectl
+    displayName: Install kubectl
+    pool:
+      name: bradoquy-k8s
+    steps:        
+    - task: CmdLine@2
+      displayName: Download kubectl  
+      inputs:
+        script: 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+    - task: CmdLine@2
+      displayName: Install kubectl
+      inputs:
+        script: 'install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl'
+    - task: CopyFiles@1
+      displayName: Copy Minikube Files
+      inputs:
+        SourceFolder: './k8s-manifests'
+        Contents: |
+          .minikube
+        TargetFolder: '/root/' 
+    - task: CopyFiles@1
+      displayName: Copy kubectl config File
+      inputs:
+        SourceFolder: './k8s-manifests'
+        Contents: |
+          config
+        TargetFolder: '/root/.kube/'
+    - task: CmdLine@2
+      displayName: Testing Kubectl
+      inputs:
+        script: 'kubectl get nodes'             
 - stage: CopyK8sManifests 
   displayName: Copy kubernetes manifests 
   jobs:
