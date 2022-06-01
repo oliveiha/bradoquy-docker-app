@@ -1,19 +1,31 @@
-- task: Docker@2
-  displayName: Docker build dotnet app
-  pool:
-    name: bradoquy-docker
-  inputs:
-    containerRegistry: 'oliveiha-dockerhub'
-    repository: 'oliveiha/dotnetapp'
-    command: 'build'
-    Dockerfile: '**docker-app/Dockerfile'
-
-
-- task: Docker@2
-  displayName: Docker push dotnet app
-  pool:
-    name: bradoquy-docker 
-  inputs:
-    containerRegistry: 'oliveiha-dockerhub'
-    repository: 'oliveiha/dotnetapp'
-    command: 'push'
+# Docker
+# Build and push an image to DockerHub
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+ 
+trigger:
+- master
+ 
+resources:
+- repo: self
+stages:
+- stage: Build 
+  displayName: Build dotnet app
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: bradoquy-docker
+    steps:
+    - task: Docker@2
+      displayName: Docker build dotnet app
+      inputs:
+        containerRegistry: 'oliveiha-dockerhub'
+        repository: 'oliveiha/dotnetapp'
+        command: 'build'
+        Dockerfile: '**docker-app/Dockerfile'
+    - task: Docker@2
+      displayName: Docker push dotnet app
+      inputs:
+        containerRegistry: 'oliveiha-dockerhub'
+        repository: 'oliveiha/dotnetapp'
+        command: 'push'
