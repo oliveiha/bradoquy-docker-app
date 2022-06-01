@@ -17,7 +17,22 @@ trigger:
 
 resources:
 - repo: self
+
 stages:
+- stage: Git Clone
+  displayName: Clonning Repo
+  jobs:
+  - job: Git
+    displayName: Clonning Repo $(dotnet-app01-deploymen)
+    pool:
+      name: bradoquy-k8s
+    steps:
+    - task: CmdLine@2
+      displayName: Clonning Repo $(dotnet-app01-deploymen)
+      inputs:
+        script: |
+          'rm -rf bradoquy-docker-app'
+          'git clone https://github.com/oliveiha/bradoquy-docker-app.git'
 - stage: ListDir
   displayName: Listing Directory
   jobs:
