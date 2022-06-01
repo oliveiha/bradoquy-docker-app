@@ -79,7 +79,7 @@ stages:
     displayName: Deploy kubernetes manifests 
     pool:
       name: bradoquy-k8s
-    teps:   
+    steps:   
     - task: KubernetesManifest@0
       inputs:
         action: 'deploy'
