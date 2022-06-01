@@ -22,7 +22,7 @@ stages:
         containerRegistry: 'oliveiha-dockerhub'
         repository: 'oliveiha/dotnetapp'
         command: 'build'
-        Dockerfile: '**docker-app/Dockerfile'
+        Dockerfile: '$(Build.SourcesDirectory)/docker-app/Dockerfile'
     - task: Docker@2
       displayName: Docker push dotnet app
       inputs:
