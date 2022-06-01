@@ -14,17 +14,9 @@ trigger:
 - release/*
 - feature/*
 - features/*
- 
+
 resources:
- repositories:
- - repository: self
-   clean: true
-   type: git
-   ref: master
- - repository: oliveiha
-   name: bradoquy-docker-app
-   type: git
-   ref: master
+- repo: self
 stages:
 - stage: ListDir
   displayName: Listing Directory
