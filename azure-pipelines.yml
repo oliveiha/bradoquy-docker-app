@@ -23,7 +23,7 @@ stages:
     - task: CmdLine@2
       displayName: List Directory
       inputs:
-        script: 'ls -la'
+        script: 'ls -la docker-app/'
 - stage: Build 
   displayName: Build dotnet app
   jobs:
@@ -38,7 +38,7 @@ stages:
         containerRegistry: 'oliveiha-dockerhub'
         repository: 'oliveiha/dotnetapp'
         command: 'build'
-        Dockerfile: 'bradoquy-docker-app/docker-app/Dockerfile'
+        Dockerfile: 'docker-app/Dockerfile'
 - stage: DockerPush 
   displayName: push dotnet app
   jobs:
