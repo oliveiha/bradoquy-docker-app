@@ -124,10 +124,10 @@ stages:
     - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
-        script: 'kubectl apply -f deployment.yaml'
+        script: 'cd $(Build.ArtifactStagingDirectory) && kubectl apply -f deployment.yaml'
     - task: CmdLine@2
       displayName: Deploy Service
       inputs:
-        script: 'kubectl apply -f service.yaml'     
+        script: 'cd $(Build.ArtifactStagingDirectory) && kubectl apply -f service.yaml'     
           
         
