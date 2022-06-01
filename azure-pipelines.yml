@@ -1,0 +1,55 @@
+# Docker
+# Build and push an image to DockerHub
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+ 
+trigger:
+- master
+ 
+resources:
+- repo: self
+stages:
+- stage: ListDir
+  displayName: Listing Directory
+  jobs:
+  - job: ls
+    displayName: Listing Directory
+    pool:
+      name: bradoquy-docker
+    steps:
+    - task: CmdLine@2
+      displayName: Pwd on Directory
+      inputs:
+        script: 'pwd'
+    - task: CmdLine@2
+      displayName: List Directory
+      inputs:
+        script: 'ls -la docker-app/'
+- stage: Build 
+  displayName: Build dotnet app
+  jobs:
+  - job: DockerBuild
+    displayName: Build
+    pool:
+      name: bradoquy-docker
+    steps:
+    - task: Docker@2
+      displayName: Docker build dotnet app
+      inputs:
+        containerRegistry: 'oliveiha-dockerhub'
+        repository: 'oliveiha/dotnetapp'
+        command: 'build'
+        Dockerfile: 'docker-app/Dockerfile'
+- stage: DockerPush 
+  displayName: push dotnet app
+  jobs:
+  - job: Push
+    displayName: Push dotnet app
+    pool:
+      name: bradoquy-docker
+    steps:        
+    - task: Docker@2
+      displayName: Docker push dotnet app
+      inputs:
+        containerRegistry: 'oliveiha-dockerhub'
+        repository: 'oliveiha/dotnetapp'
+        command: 'push'
