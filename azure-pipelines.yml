@@ -18,6 +18,7 @@ trigger:
 resources:
  repositories:
  - repository: self
+   clean: true
    type: git
    ref: master
  - repository: oliveiha
