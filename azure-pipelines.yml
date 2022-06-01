@@ -55,3 +55,36 @@ stages:
         command: 'push'
         tags: |
           latest
+
+- stage: CopyK8sManifests 
+  displayName: Copy kubernetes manifests 
+  jobs:
+  - job: CopyK8sManifests
+    displayName: Copy kubernetes manifests 
+    pool:
+      name: bradoquy-k8s
+    steps:        
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: 'docker-app/k8s-manifests'
+        Contents: |
+          deployment.yaml
+          service.yaml
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- stage: DeployK8sManifests 
+  displayName: Deploy kubernetes manifests 
+  jobs:
+  - job: DeployK8sManifests
+    displayName: Deploy kubernetes manifests 
+    pool:
+      name: bradoquy-k8s
+    teps:   
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        manifests: |
+           $(Build.ArtifactStagingDirectory)/deployment.yaml
+           $(Build.ArtifactStagingDirectory)/service.yaml
+        containers: |
+          oliveiha/dotnetapp:latest
