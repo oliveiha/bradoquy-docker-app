@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
  
 trigger:
-- master
+- main
  
 resources:
 - repo: self
@@ -14,7 +14,7 @@ stages:
   - job: ls
     displayName: Listing Directory
     pool:
-      name: bradoquy-docker
+      name: bradoquy-k8s
     steps:
     - task: CmdLine@2
       displayName: Pwd on Directory
@@ -30,7 +30,7 @@ stages:
   - job: DockerBuild
     displayName: Build
     pool:
-      name: bradoquy-docker
+      name: bradoquy-k8s
     steps:
     - task: Docker@2
       displayName: Docker build dotnet app
@@ -45,7 +45,7 @@ stages:
   - job: Push
     displayName: Push dotnet app
     pool:
-      name: bradoquy-docker
+      name: bradoquy-k8s
     steps:        
     - task: Docker@2
       displayName: Docker push dotnet app
