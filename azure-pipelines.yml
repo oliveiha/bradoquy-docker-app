@@ -78,21 +78,21 @@ stages:
     - task: CopyFiles@1
       displayName: Copy Minikube Files
       inputs:
-        SourceFolder: '/azp/_work/1/s/k8s-manifests/'
+        SourceFolder: './k8s-manifests/'
         Contents: |
-          .minikube
+          minikube
         TargetFolder: '$(Build.ArtifactStagingDirectory)' 
     - task: CopyFiles@1
       displayName: Copy kubectl config File
       inputs:
-        SourceFolder: '/azp/_work/1/s/k8s-manifests/'
+        SourceFolder: './k8s-manifests/'
         Contents: |
           config
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
     - task: CmdLine@2
       displayName: Copy minikube and config to root dir
       inputs:
-        script: 'cp -r /azp/_work/1/s/k8s-manifests/.minikube/ /root/ && cp -r /azp/_work/1/s/k8s-manifests/config /root/.kube/'    
+        script: 'cp -r /azp/_work/1/s/k8s-manifests/minikube/ /root/ && cp -r /azp/_work/1/s/k8s-manifests/config /root/.kube/'    
     - task: CmdLine@2
       displayName: Testing Kubectl
       inputs:
