@@ -2,6 +2,10 @@
 # Build and push an image to DockerHub
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 variables:
+- name: "app-name"
+  value: "dotnet-app01-deployment"
+- name: "dotnet-app-repo"
+  value: "https://github.com/oliveiha/bradoquy-docker-app.git"  
 - group: "dotnetapp"
     
 trigger:
@@ -12,10 +16,27 @@ trigger:
 - release/*
 - feature/*
 - features/*
- 
+
 resources:
 - repo: self
+
 stages:
+- stage: GitClone
+  displayName: Clonning Repo
+  jobs:
+  - job: Git
+    displayName: Clonning Repo
+    pool:
+      name: bradoquy-k8s
+    steps:
+    - task: CmdLine@2
+      displayName: delete dir
+      inputs:
+        script: 'rm -rf bradoquy-docker-app'
+    - task: CmdLine@2
+      displayName: Clonning Repo
+      inputs:
+        script: 'git clone $(dotnet-app-repo)'      
 - stage: ListDir
   displayName: Listing Directory
   jobs:
@@ -130,9 +151,14 @@ stages:
       name: bradoquy-k8s
     steps:   
     - task: CmdLine@2
+      displayName: Delete App
+      inputs:
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl delete deployment $(app-name)'
+    - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
         script: 'cd /azp/_work/1/s/k8s-manifests && kubectl apply -f deployment.yaml'
+        
     - task: CmdLine@2
       displayName: Deploy Service
       inputs:
