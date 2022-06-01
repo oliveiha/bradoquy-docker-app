@@ -25,7 +25,7 @@ stages:
   displayName: Clonning Repo
   jobs:
   - job: Git
-    displayName: Clonning Repo $(dotnet-app01-deploymen)
+    displayName: Clonning Repo
     pool:
       name: bradoquy-k8s
     steps:
