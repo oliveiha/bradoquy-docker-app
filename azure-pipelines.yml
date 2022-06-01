@@ -4,6 +4,8 @@
 variables:
 - name: "app-name"
   value: "dotnet-app01-deployment"
+- name: "dotnet-app-repo"
+  value: "https://github.com/oliveiha/bradoquy-docker-app.git"  
 - group: "dotnetapp"
     
 trigger:
@@ -28,11 +30,11 @@ stages:
       name: bradoquy-k8s
     steps:
     - task: CmdLine@2
-      displayName: Clonning Repo $(dotnet-app01-deploymen)
+      displayName: Clonning Repo
       inputs:
         script: |
           'rm -rf bradoquy-docker-app'
-          'git clone https://github.com/oliveiha/bradoquy-docker-app.git'
+          'git clone $(dotnet-app-repo)'
 - stage: ListDir
   displayName: Listing Directory
   jobs:
