@@ -78,14 +78,18 @@ stages:
         SourceFolder: './k8s-manifests'
         Contents: |
           .minikube
-        TargetFolder: '/root/' 
+        TargetFolder: '$(Build.ArtifactStagingDirectory)' 
     - task: CopyFiles@1
       displayName: Copy kubectl config File
       inputs:
         SourceFolder: './k8s-manifests'
         Contents: |
           config
-        TargetFolder: '/root/.kube/'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: CmdLine@2
+      displayName: Copy minikube and config to root dir
+      inputs:
+        script: 'mv $(Build.ArtifactStagingDirectory)/.minikube/ /root/ && mv $(Build.ArtifactStagingDirectory)/config /root/.kube/'    
     - task: CmdLine@2
       displayName: Testing Kubectl
       inputs:
