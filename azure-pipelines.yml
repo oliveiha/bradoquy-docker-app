@@ -2,6 +2,8 @@
 # Build and push an image to DockerHub
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 variables:
+- name: "app-name"
+  value: "dotnet-app01-deployment"
 - group: "dotnetapp"
     
 trigger:
@@ -133,6 +135,10 @@ stages:
       displayName: Deploy Deployment
       inputs:
         script: 'cd /azp/_work/1/s/k8s-manifests && kubectl apply -f deployment.yaml'
+    - task: CmdLine@2
+      displayName: Delete App
+      inputs:
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl delete deployment $(app-name)'    
     - task: CmdLine@2
       displayName: Deploy Service
       inputs:
