@@ -34,7 +34,7 @@ stages:
         containerRegistry: 'oliveiha-dockerhub'
         repository: 'oliveiha/dotnetapp'
         command: 'build'
-        Dockerfile: './docker-app/Dockerfile'
+        Dockerfile: 'bradoquy-docker-app/docker-app/Dockerfile'
 - stage: DockerPush 
   displayName: push dotnet app
   jobs:
