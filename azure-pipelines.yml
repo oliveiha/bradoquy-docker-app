@@ -17,6 +17,10 @@ stages:
       name: bradoquy-docker
     steps:
     - task: CmdLine@2
+      displayName: Pwd on Directory
+      inputs:
+        script: 'pwd'
+    - task: CmdLine@2
       displayName: List Directory
       inputs:
         script: 'ls -la'
