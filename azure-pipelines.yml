@@ -61,11 +61,22 @@ stages:
 - stage: Build 
   displayName: Build dotnet app
   jobs:
+  - job: PrintEnv
+    displayName: PrintEnvs
+    pool:
+      name: bradoquy-k8s
+    steps:
+    - task: Bash@3
+      displayName: PrintEnvs
+      inputs:
+        targetType: 'inline'
+        script: 'env | sort'
   - job: DockerBuild
     displayName: Build
     pool:
       name: bradoquy-k8s
     steps:
+    
     - task: Docker@2
       displayName: Docker build dotnet app
       inputs:
@@ -77,8 +88,8 @@ stages:
           $(Build.BuildId)
           latest
         arguments: |
-          --build-arg APP-NET-SDK=$(app-net-sdk)
-          --build-arg APP-CORE-VERSION=$(app-core-version)
+          --env APP-NET-SDK=$(app-net-sdk)
+          --env APP-CORE-VERSION=$(app-core-version)
                 
 - stage: DockerPush 
   displayName: push dotnet app
