@@ -8,7 +8,7 @@ variables:
   value: "https://github.com/oliveiha/bradoquy-docker-app.git"
 - name: "app-net-sdk"
   value: "Microsoft.NET.Sdk.Web"
-- name: "__app-core-version__"
+- name: "app-core-version"
   value: "netcoreapp3.1"    
 - group: "dotnetapp"
 
@@ -96,6 +96,10 @@ stages:
         tags: |
           $(Build.BuildId)
           latest
+        arguments: |
+          --build-arg APP-NET-SDK=${{ variables.app-net-sdk }}
+          --build-arg APP-CORE-VERSION=${{ variables.app-core-version }}
+                
 - stage: DockerPush 
   displayName: push dotnet app
   jobs:
