@@ -153,7 +153,8 @@ stages:
     - task: CmdLine@2
       displayName: Delete App
       inputs:
-        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl delete deployment $(app-name)'
+        script: 'cd /azp/_work/1/s/k8s-manifests'
+        
     - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
@@ -162,6 +163,6 @@ stages:
     - task: CmdLine@2
       displayName: Deploy Service
       inputs:
-        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl apply -f service.yaml'     
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl set image deployment dotnet-app01 my-image=oliveiha/dotnetapp:126'     
           
         
