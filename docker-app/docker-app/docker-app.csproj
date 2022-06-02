@@ -1,4 +1,4 @@
-<Project Sdk=$(APP_NET_SDK)>
+<Project Sdk="$(APP_NET_SDK)">
 
   <PropertyGroup>
     <TargetFramework>$(APP-CORE-VERSION)</TargetFramework>
