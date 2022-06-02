@@ -77,8 +77,8 @@ stages:
           $(Build.BuildId)
           latest
         arguments: |
-          --build-arg APP-NET-SDK=$(variables.app-net-sdk)
-          --build-arg APP-CORE-VERSION=$(variables.app-core-version)
+          --build-arg APP-NET-SDK=$(app-net-sdk)
+          --build-arg APP-CORE-VERSION=$(app-core-version)
                 
 - stage: DockerPush 
   displayName: push dotnet app
