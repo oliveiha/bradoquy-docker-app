@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="$(app-net-sdk)">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>$(app-core-version)</TargetFramework>
     <RootNamespace>docker_app</RootNamespace>
   </PropertyGroup>
 
