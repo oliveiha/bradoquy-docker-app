@@ -8,13 +8,11 @@ variables:
   value: "https://github.com/oliveiha/bradoquy-docker-app.git"
 - name: "app-net-sdk"
   value: "Microsoft.NET.Sdk.Web"
-- name: "app-core-version"
+- name: "__app-core-version__"
   value: "netcoreapp3.1"    
 - group: "dotnetapp"
 
 
-
-   
 trigger:
 - main
 - master
@@ -43,7 +41,27 @@ stages:
     - task: CmdLine@2
       displayName: Clonning Repo
       inputs:
-        script: 'git clone $(dotnet-app-repo)'      
+        script: 'git clone $(dotnet-app-repo)' 
+- stage: RaplaceVar
+  displayName: Replace var teste
+  jobs:
+  - job: ReplaceVar
+    displayName: Replace env variable
+    pool:
+      name: bradoquy-k8s
+    steps:
+    - task: ReplaceVariables@2
+      displayName: Replace env var docker-app.csproj
+      inputs:
+        PathToFolder: 'docker-app/docker-app/'
+        FilePattern: 'docker-app.csproj'
+        ReplaceUndefined: true
+        Recursive: true
+        RegexPattern: |
+          __(\w+[\.\w+]*)__
+
+          __(\w+)__
+        SecretVariables: '"__app-core-version__"'             
 - stage: ListDir
   displayName: Listing Directory
   jobs:
