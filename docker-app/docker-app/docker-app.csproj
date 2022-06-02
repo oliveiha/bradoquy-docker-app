@@ -1,7 +1,7 @@
-<Project Sdk="$(app-net-sdk)">
+<Project Sdk="$(APP-NET-SDK)">
 
   <PropertyGroup>
-    <TargetFramework>$(app-core-version)</TargetFramework>
+    <TargetFramework>$(APP-CORE-VERSION)</TargetFramework>
     <RootNamespace>docker_app</RootNamespace>
   </PropertyGroup>
 
