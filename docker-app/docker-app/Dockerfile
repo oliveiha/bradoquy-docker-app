@@ -1,4 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+ARG APP-NET-SDK
+ARG APP-CORE-VERSION
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
