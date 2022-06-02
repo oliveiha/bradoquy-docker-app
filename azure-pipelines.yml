@@ -5,9 +5,14 @@ variables:
 - name: "app-name"
   value: "dotnet-app01-deployment"
 - name: "dotnet-app-repo"
-  value: "https://github.com/oliveiha/bradoquy-docker-app.git"  
+  value: "https://github.com/oliveiha/bradoquy-docker-app.git"
+- name: "app-net-sdk"
+  value: "Microsoft.NET.Sdk.Web"
+- name: "app-core-version"
+  value: "netcoreapp3.1"    
 - group: "dotnetapp"
-    
+
+
 trigger:
 - main
 - master
@@ -36,7 +41,7 @@ stages:
     - task: CmdLine@2
       displayName: Clonning Repo
       inputs:
-        script: 'git clone $(dotnet-app-repo)'      
+        script: 'git clone $(dotnet-app-repo)' 
 - stage: ListDir
   displayName: Listing Directory
   jobs:
@@ -71,6 +76,10 @@ stages:
         tags: |
           $(Build.BuildId)
           latest
+        arguments: |
+          --build-arg APP-NET-SDK=$(variables.app-net-sdk)
+          --build-arg APP-CORE-VERSION=$(variables.app-core-version)
+                
 - stage: DockerPush 
   displayName: push dotnet app
   jobs:
@@ -158,7 +167,7 @@ stages:
     - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
-        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl set image deployment dotnet-app01 my-image=oliveiha/dotnetapp:126'
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl set image deployment dotnet-app01 my-image=oliveiha/dotnetapp:$(Build.BuildId)'
         
     - task: CmdLine@2
       displayName: Deploy Service
