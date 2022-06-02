@@ -165,7 +165,7 @@ stages:
     - task: CmdLine@2
       displayName: Deploy Deployment
       inputs:
-        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl set image deployment dotnet-app01 my-image=oliveiha/dotnetapp:126'
+        script: 'cd /azp/_work/1/s/k8s-manifests && kubectl set image deployment dotnet-app01 my-image=oliveiha/dotnetapp:$(Build.BuildId)'
         
     - task: CmdLine@2
       displayName: Deploy Service
