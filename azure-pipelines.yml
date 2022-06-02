@@ -5,9 +5,16 @@ variables:
 - name: "app-name"
   value: "dotnet-app01-deployment"
 - name: "dotnet-app-repo"
-  value: "https://github.com/oliveiha/bradoquy-docker-app.git"  
+  value: "https://github.com/oliveiha/bradoquy-docker-app.git"
+- name: "app-net-sdk"
+  value: "Microsoft.NET.Sdk.Web"
+- name: "app-core-version"
+  value: "netcoreapp3.1"    
 - group: "dotnetapp"
-    
+
+
+
+   
 trigger:
 - main
 - master
