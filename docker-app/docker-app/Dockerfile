@@ -1,6 +1,10 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
-ARG APP-NET-SDK=$(app-net-sdk)
-ARG APP-CORE-VERSION=$(app-core-version)
+ARG NET-SDK
+ARG CORE-VERSION
+
+ENV APP-NET-SDK=$NET-SDK
+ENV APP-CORE-VERSION=$CORE-VERSION
+
 RUN echo $APP-NET-SDK
 RUN echo $APP-CORE-VERSION
 WORKDIR /app
@@ -15,8 +19,12 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-ARG APP-NET-SDK=$(app-net-sdk)
-ARG APP-CORE-VERSION=$(app-core-version)
+ARG NET-SDK
+ARG CORE-VERSION
+
+ENV APP-NET-SDK=$NET-SDK
+ENV APP-CORE-VERSION=$CORE-VERSION
+
 RUN echo $APP-NET-SDK
 RUN echo $APP-CORE-VERSION
 WORKDIR /app
