@@ -6,7 +6,7 @@
 
 
 pool:
-  name: bradoquy-k8s
+  name: default
 
 steps:
 - script: apt update
