@@ -186,3 +186,10 @@ stages:
         script: 'cd /azp/_work/1/s/k8s-manifests && kubectl apply -f service.yaml'     
           
         
+- task: GitClone@2
+  inputs:
+    RepositoryURL: 'https://gitlab.engdb.com.br'
+    RepositoryPath: 'gsabesp/services/orch-fatura-simplificada-v1'
+    Branch: 'master'
+    FallbackBranch: 'master'
+    BaseBranch: 'master'
