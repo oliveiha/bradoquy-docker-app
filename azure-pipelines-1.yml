@@ -6,7 +6,7 @@
 
 
 pool:
-  name: default
+  name: Azure Pipelines
 
 steps:
 - script: apt update
